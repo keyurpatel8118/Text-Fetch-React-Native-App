@@ -1,16 +1,10 @@
-import * as React from 'react';
-import {Text, View, StyleSheet, Image} from 'react-native';
-import AmazingCropper, {DefaultFooter} from 'react-native-amazing-cropper';
+import React, {Component} from 'react';
+import AmazingCropper from 'react-native-amazing-cropper';
+import ImageRotate from 'react-native-image-rotate';
+import CustomCropperFooter from '../components/CustomCropperFooter';
+import {Alert} from 'react-native';
 
-class ImageCrop extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      filePath: {},
-      imgDone: false,
-    };
-  }
-
+class ImageCrop extends Component {
   onDone = croppedImageUri => {
     console.log('Cropped Image URI: ', croppedImageUri);
     this.setState({filePath: {uri: croppedImageUri}, imgDone: true});
@@ -19,17 +13,23 @@ class ImageCrop extends React.Component {
   onCancel = () => {
     console.log('Cancel Button was pressed');
   };
-
   render() {
-    // var {imgURI} = this.props;
-    let {imgDone} = this.state;
+    const uri = this.props.navigation.getParam('uri');
+    console.log('Reached');
+    console.log('URI: ', uri);
+
     return (
       <AmazingCropper
         footerComponent={
           <DefaultFooter doneText="DONE" rotateText="ROT" cancelText="CANCEL" />
         }
-        onDone={this.onDone}
-        onCancel={this.onCancel}
+        onDone={croppedImageUri => {
+          console.log('Cropped Image URI: ', croppedImageUri);
+          this.setState({filePath: {uri: croppedImageUri}, imgDone: true});
+        }}
+        onCancel={() => {
+          console.log('Cancel Button was pressed');
+        }}
         // imageUri={imgURI}
         imageUri="https://www.lifeofpix.com/wp-content/uploads/2018/09/manhattan_-11-1600x2396.jpg"
         imageWidth={1600}

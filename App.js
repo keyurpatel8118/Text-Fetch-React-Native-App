@@ -1,68 +1,39 @@
 import * as React from 'react';
 import {Text, View, StyleSheet, Button} from 'react-native';
-import ImagePicker from 'react-native-image-picker';
-import ImageCrop from './components/ImageCropper';
+import 'react-native-gesture-handler';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import CropScreen from './screens/CropScreen';
+import CameraScreen from './screens/CameraScreen';
+import SettingsScreen from './screens/SettingsScreen';
+import {Ionicons} from 'react-native-vector-icons/Ionicons';
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      filePath: {},
-      imageSel: false,
-    };
-  }
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-  SelectImage = () => {
-    var options = {
-      title: 'Select Image',
-      customButtons: [
-        {name: 'customOptionKey', title: 'Choose Photo from Custom Option'},
-      ],
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    ImagePicker.showImagePicker(options, response => {
-      // console.log('Response = ', response);
+// function MyTabs() {
+//   return (
+//     <Tab.Navigator>
+//       <Tab.Screen name="Camera" component={CameraScreen} />
+//       <Tab.Screen name="Settings" component={SettingsScreen} />
+//     </Tab.Navigator>
+//   );
+// }
 
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-        alert(response.customButton);
-      } else {
-        let source = response;
-        // You can also display the image using data:
-        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-        this.setState({
-          filePath: source,
-          imageSel: true,
-        });
-      }
-    });
-  };
-
-  render() {
-    var imgSel = this.state.imageSel;
-    return (
-      <View>
-        <Button
-          title="Select Image"
-          style={styles.buttonStyle}
-          onPress={this.SelectImage}
-        />
-        {imgSel ? <ImageCrop imgURI={this.state.filePath.uri} /> : <View />}
-      </View>
-    );
-  }
+function CropNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Camera" component={CameraScreen} />
+      <Stack.Screen name="Crop" component={CropScreen} />
+    </Stack.Navigator>
+  );
 }
 
-const styles = StyleSheet.create({
-  buttonStyle: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+export default function App() {
+  return (
+    <NavigationContainer>
+      <CropNavigator />
+    </NavigationContainer>
+  );
+}

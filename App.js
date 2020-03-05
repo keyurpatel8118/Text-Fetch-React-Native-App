@@ -1,39 +1,35 @@
-import * as React from 'react';
-import {Text, View, StyleSheet, Button} from 'react-native';
 import 'react-native-gesture-handler';
+import React, {Component} from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+  StatusBar,
+} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import CropScreen from './screens/CropScreen';
-import CameraScreen from './screens/CameraScreen';
+import ImageCropScreen from './screens/ImageCropScreen';
 import SettingsScreen from './screens/SettingsScreen';
-import {Ionicons} from 'react-native-vector-icons/Ionicons';
+import StepperScreen from './screens/StepperScreen';
+import InitializationScreen from './screens/InitializationScreen';
 
-const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-// function MyTabs() {
-//   return (
-//     <Tab.Navigator>
-//       <Tab.Screen name="Camera" component={CameraScreen} />
-//       <Tab.Screen name="Settings" component={SettingsScreen} />
-//     </Tab.Navigator>
-//   );
-// }
-
-function CropNavigator() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Camera" component={CameraScreen} />
-      <Stack.Screen name="Crop" component={CropScreen} />
-    </Stack.Navigator>
-  );
+class App extends Component {
+  render() {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Initialize">
+          <Stack.Screen name="Initialize" component={InitializationScreen} />
+          <Stack.Screen name="Stepper" component={StepperScreen} />
+          <Stack.Screen name="ImageCrop" component={ImageCropScreen} />
+          <Stack.Screen name="Settings" component={SettingsScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
+  }
 }
 
-export default function App() {
-  return (
-    <NavigationContainer>
-      <CropNavigator />
-    </NavigationContainer>
-  );
-}
+export default App;

@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, Text} from 'react-native';
 
-export default function SettingsScreen() {
-  return (
-    <View>
-      <Text>Settings Screen</Text>
-    </View>
-  );
+class SettingsScreen extends Component {
+  render() {
+    return (
+      <View>
+        <Text>Settings Screen</Text>
+      </View>
+    );
+  }
 }
+
+export default SettingsScreen;

@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import {View, Alert, TextInput, StyleSheet, Button} from 'react-native';
 import StepperScreen from '../screens/StepperScreen';
 

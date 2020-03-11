@@ -37,10 +37,11 @@ class ImageCropScreen extends Component {
 
   render() {
     const {navigation} = this.props;
+    this.handleSelectImage();
     return (
       <View>
-        <Text>Camera Screen</Text>
-        <Button title="Select Image" onPress={this.handleSelectImage} />
+        {/* <Text>Camera Screen</Text>
+        <Button title="Select Image" onPress={this.handleSelectImage} /> */}
         {this.state.imgSel ? (
           <View>
             <Image
